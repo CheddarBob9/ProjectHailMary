@@ -7,13 +7,13 @@
 
 import SwiftUI
 
-struct ViewRecipes: View {
+struct Breakfast: View {
 	var body: some View {
-		Text("View category recipes")
-			.navigationTitle("Recipes")
+		Text("View Breakfast recipes")
+			.navigationTitle("Breakfast")
 	}
 	
 	}
 #Preview {
-	ViewRecipes()
+	Breakfast()
 }

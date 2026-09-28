@@ -28,8 +28,8 @@ struct ContentView: View {
 							.shadow(color: .green.opacity(0.7), radius: 6, x: 0, y: 0)
 					)
 				
-				NavigationLink("Got to Recipes") {
-					ViewRecipes()
+				NavigationLink("Got to Breakfast") {
+					Breakfast()
 				}
 				
 				
