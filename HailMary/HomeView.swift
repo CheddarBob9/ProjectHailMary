@@ -1,32 +1,29 @@
 //
-//  ContentView.swift
+//  HomeView.swift
 //  HailMary
 //
-//  Created by Robert Montgomery on 9/28/26.
+//  Created by Emily Flowers on 10/4/26.
 //
 
 import SwiftUI
 
-struct ContentView: View {
-	
-	var categories = ["Breakfast", "Soup & Salad", "Snacks & Sides", "Main Meals", "Sauce is Boss", "Sweet Treats"]
-	
+struct HomeView: View {
     var body: some View {
-		
-		VStack(spacing: 12) {
-			ForEach(categories, id: \.self) { category in
-				Button { print(category) } label: {
-					Text(category).frame(width: 200)
-				}
-				.buttonStyle(.borderedProminent)
-			}
-		} // VStack
-		
-    } // View
-} // ContentView
+        NavigationView {
+            VStack {
+            }
+            .navigationTitle("Home")
+            .toolbar {
+                Button {
+                    // Action
+                } label: {
+                    Image(systemName: "person")
+                }
+            }
+        }
+    }
+}
 
-struct ConstentView_Previews: PreviewProvider {
-	static var previews: some View {
-		ContentView()
-	}
+#Preview {
+    HomeView()
 }

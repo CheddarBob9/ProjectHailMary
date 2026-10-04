@@ -8,8 +8,37 @@
 import SwiftUI
 
 struct NewRecipeView: View {
+    @StateObject var viewModel = NewRecipeViewViewModel()
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack {
+            Text("New Recipe")
+                .font(.system(size: 32))
+                .bold()
+                .padding()
+            
+            Form {
+                // Title
+                TextField("Title", text: $viewModel.title)
+                
+                // Ingredients
+                TextField("Ingredients", text: $viewModel.ingredients)
+                
+                // Notes
+                TextField("Notes", text: $viewModel.notes)
+                
+                // Save or Cancel
+                HStack {
+                    Button(action: viewModel.cancel) {
+                        Text("Cancel")
+                    }
+                    Button(action: viewModel.save) {
+                        Text("Save")
+                    }
+                    
+                }
+            }
+        }
     }
 }
 
