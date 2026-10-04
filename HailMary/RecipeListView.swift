@@ -8,8 +8,26 @@
 import SwiftUI
 
 struct RecipeListView: View {
+    @StateObject var viewModel = RecipeListViewViewModel()
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        NavigationView {
+            VStack {                
+            }
+            .navigationTitle("Recipes")
+            .toolbar {
+                Button {
+                    // Action
+                    viewModel.showingNewRecipeView = true
+                } label: {
+                    Image(systemName: "plus")
+                }
+            }
+            
+            .sheet(isPresented: $viewModel.showingNewRecipeView) {
+                NewRecipeView()
+            }
+        }
     }
 }
 

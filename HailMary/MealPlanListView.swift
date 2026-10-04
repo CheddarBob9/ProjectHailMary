@@ -9,7 +9,23 @@ import SwiftUI
 
 struct MealPlanListView: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        
+        NavigationView {
+            VStack {
+                
+            }
+            .navigationTitle("Meal Plans")
+            .toolbar {
+                Button {
+                    // Action
+                } label: {
+                    Image(systemName: "plus")
+                }
+            }
+        }
+        
+        
+        
     }
 }
 
