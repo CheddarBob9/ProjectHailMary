@@ -22,8 +22,14 @@ struct NewRecipeView: View {
                 // Ingredients
                 TextField("Ingredients", text: $viewModel.ingredients)
                 
+                // Instructions
+                TextField("Instructions", text: $viewModel.instructions)
+                
                 // Notes
                 TextField("Notes", text: $viewModel.notes)
+                
+                // Add Photo
+                Button("Add Photo") {} // Need to add functionality
             }
             // Title for screen
             .navigationTitle("Add New Recipe")
