@@ -25,7 +25,8 @@ struct RecipeListView: View {
             }
             
             .sheet(isPresented: $viewModel.showingNewRecipeView) {
-                NewRecipeView()
+                NewRecipeView(newRecipePresented:
+                                $viewModel.showingNewRecipeView)
             }
         }
     }
