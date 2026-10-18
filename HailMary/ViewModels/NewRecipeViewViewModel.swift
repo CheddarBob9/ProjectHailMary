@@ -11,6 +11,7 @@ public import Combine
 class NewRecipeViewViewModel: ObservableObject {
     @Published var title = ""
     @Published var ingredients = ""
+    @Published var instructions = ""
     @Published var notes = ""
     @Published var showAlert = false
     
