@@ -22,7 +22,9 @@ struct RecipeListView: View {
 					} label: {
 						VStack(alignment: .leading) {
 							Text(recipe.title).font(.headline)
-							Text(recipe.notes).font(.subheadline).foregroundColor(.gray)
+							if !recipe.notes.isEmpty {
+								Text(recipe.notes).font(.subheadline).foregroundColor(.gray)
+							}
 						}
                     }
                 }
