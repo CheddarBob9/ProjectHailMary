@@ -17,9 +17,13 @@ struct RecipeListView: View {
         NavigationView {
             List {
                 ForEach(recipes) { recipe in
-                    VStack(alignment: .leading) {
-                        Text(recipe.title).font(.headline)
-                        Text(recipe.notes).font(.subheadline).foregroundColor(.gray)
+					NavigationLink {
+						RecipeDetailView(recipe: recipe)
+					} label: {
+						VStack(alignment: .leading) {
+							Text(recipe.title).font(.headline)
+							Text(recipe.notes).font(.subheadline).foregroundColor(.gray)
+						}
                     }
                 }
                 .onDelete(perform: deleteRecipe) // Trigger delete operation
