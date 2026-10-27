@@ -14,6 +14,13 @@ struct NewRecipeView: View {
     @Environment(\.dismiss) var dismiss
     @Environment(\.modelContext) private var modelContext
     @State private var name: String = ""
+	
+	enum Field: Hashable {
+		case ingredient(Int)
+		case step(Int)
+	}
+	
+	@FocusState private var focusedField: Field?
     
     var body: some View {
         NavigationStack {
@@ -25,21 +32,27 @@ struct NewRecipeView: View {
                 Section("Ingredients") {
                     ForEach(viewModel.ingredients.indices, id: \.self) { index in
                     TextField("Ingredient", text: $viewModel.ingredients[index])
+							.focused($focusedField, equals: .ingredient(index))
                     }
                     .onDelete { offsets in viewModel.ingredients.remove(atOffsets: offsets)
                     }
                                     
                     Button {
                         viewModel.ingredients.append("")
-                        } label: {
-                        Label("Add Ingredient", systemImage: "plus.circle")
-                        }
-                    }
+						let newIndex = viewModel.ingredients.count - 1
+						DispatchQueue.main.async {
+							focusedField = .ingredient(newIndex)
+						}
+					} label: {
+					Label("Add Ingredient", systemImage: "plus.circle")
+					}
+				}
                                
                 // Instructions fields
                 Section("Instructions") {
                     ForEach(viewModel.instructions.indices, id: \.self) { index in
                         TextField("Step", text: $viewModel.instructions[index])
+							.focused($focusedField, equals: .step(index))
                         }
                         .onDelete { offsets in
                             viewModel.instructions.remove(atOffsets: offsets)
@@ -47,10 +60,14 @@ struct NewRecipeView: View {
                                     
                     Button {
                         viewModel.instructions.append("")
-                        } label: {
+						let newIndex = viewModel.instructions.count - 1
+						DispatchQueue.main.async {
+							focusedField = .step(newIndex)
+						}
+					} label: {
                     Label("Add Step", systemImage: "plus.circle")
-                        }
-                    }
+					}
+				}
                 
                 // Notes
                 TextField("Notes", text: $viewModel.notes)
