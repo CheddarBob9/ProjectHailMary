@@ -6,24 +6,51 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct NewRecipeView: View {
     @StateObject var viewModel = NewRecipeViewViewModel()
     @Binding var newRecipePresented: Bool
     @Environment(\.dismiss) var dismiss
+    @Environment(\.modelContext) private var modelContext
     @State private var name: String = ""
     
     var body: some View {
         NavigationStack {
             Form {
-                // Title
+                // Title field
                 TextField("Title", text: $viewModel.title)
                 
-                // Ingredients
-                TextField("Ingredients", text: $viewModel.ingredients)
-                
-                // Instructions
-                TextField("Instructions", text: $viewModel.instructions)
+                // Ingredients fields
+                Section("Ingredients") {
+                    ForEach(viewModel.ingredients.indices, id: \.self) { index in
+                    TextField("Ingredient", text: $viewModel.ingredients[index])
+                    }
+                    .onDelete { offsets in viewModel.ingredients.remove(atOffsets: offsets)
+                    }
+                                    
+                    Button {
+                        viewModel.ingredients.append("")
+                        } label: {
+                        Label("Add Ingredient", systemImage: "plus.circle")
+                        }
+                    }
+                               
+                // Instructions fields
+                Section("Instructions") {
+                    ForEach(viewModel.instructions.indices, id: \.self) { index in
+                        TextField("Step", text: $viewModel.instructions[index])
+                        }
+                        .onDelete { offsets in
+                            viewModel.instructions.remove(atOffsets: offsets)
+                        }
+                                    
+                    Button {
+                        viewModel.instructions.append("")
+                        } label: {
+                    Label("Add Step", systemImage: "plus.circle")
+                        }
+                    }
                 
                 // Notes
                 TextField("Notes", text: $viewModel.notes)
@@ -44,10 +71,10 @@ struct NewRecipeView: View {
                 ToolbarItem(placement: .confirmationAction) {
                     Button("Save") {
                         // Call save method and dismiss Add Recipe popup
-                        viewModel.save()
+                        viewModel.save(modelContext: modelContext)
                         dismiss()
                     }
-                    .disabled(!viewModel.canSave) // Save button disabled if title and ingredients are blank
+                    .disabled(!viewModel.canSave) // Save button disabled if title is blank
                 }
             }
         }
