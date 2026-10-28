@@ -9,7 +9,7 @@ import SwiftUI
 import SwiftData
 
 struct NewRecipeView: View {
-    @StateObject var viewModel = NewRecipeViewViewModel()
+    @StateObject private var viewModel = NewRecipeViewViewModel()
     @Binding var newRecipePresented: Bool
     @Environment(\.dismiss) var dismiss
     @Environment(\.modelContext) private var modelContext
@@ -21,6 +21,10 @@ struct NewRecipeView: View {
 	}
 	
 	@FocusState private var focusedField: Field?
+    init(recipe: Recipe? = nil, newRecipePresented: Binding<Bool>) {
+        _viewModel = StateObject(wrappedValue: NewRecipeViewViewModel(recipe: recipe))
+        _newRecipePresented = newRecipePresented
+    }
     
     var body: some View {
         NavigationStack {
@@ -75,8 +79,8 @@ struct NewRecipeView: View {
                 // Add Photo
                 Button("Add Photo") {} // Need to add functionality
             }
-            // Title for screen
-            .navigationTitle("Add New Recipe")
+            // Title for screen editing or adding new
+            .navigationTitle(viewModel.isEditing ? "Edit Recipe" : "Add New Recipe")
             // Buttons at top for cancel or save
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {

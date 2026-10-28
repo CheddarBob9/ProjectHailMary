@@ -10,6 +10,8 @@ import SwiftData
 
 struct RecipeDetailView: View {
 	let recipe: Recipe          // the recipe that was tapped
+    
+    @State private var showEditing = false
 
 	var body: some View {
 		List {
@@ -35,5 +37,12 @@ struct RecipeDetailView: View {
 			}
 		}
 		.navigationTitle(recipe.title)
+        
+        .toolbar {
+            Button("Edit") { showEditing = true }
+        }
+        .sheet(isPresented: $showEditing) {
+            NewRecipeView(recipe: recipe, newRecipePresented: $showEditing)
+        }
 	}
 }
