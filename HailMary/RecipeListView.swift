@@ -17,30 +17,33 @@ struct RecipeListView: View {
         NavigationView {
             List {
                 ForEach(recipes) { recipe in
-					NavigationLink {
-						RecipeDetailView(recipe: recipe)
-					} label: {
-						VStack(alignment: .leading) {
-							Text(recipe.title).font(.headline)
-							if !recipe.notes.isEmpty {
-								Text(recipe.notes).font(.subheadline).foregroundColor(.gray)
-							}
-						}
+                    NavigationLink {
+                        RecipeDetailView(recipe: recipe)
+                    } label: {
+                        VStack(alignment: .leading) {
+                            Text(recipe.title).font(.headline)
+                            if !recipe.notes.isEmpty {
+                                Text(recipe.notes)
+                                    .font(.subheadline)
+                                    .foregroundColor(.gray)
+                                    .lineLimit(1)
+                            }
+                        }
                     }
                 }
                 .onDelete(perform: deleteRecipe) // Trigger delete operation
-                }
-                .navigationTitle("Recipes")
-                .toolbar {
+            }
+            .navigationTitle("Recipes")
+            .toolbar {
                 Button {
                     viewModel.showingNewRecipeView = true
                 } label: {
                     Image(systemName: "plus")
                 }
-                }
-                .sheet(isPresented: $viewModel.showingNewRecipeView) {
-                            NewRecipeView(newRecipePresented: $viewModel.showingNewRecipeView)
-                    }
+            }
+            .sheet(isPresented: $viewModel.showingNewRecipeView) {
+                NewRecipeView(newRecipePresented: $viewModel.showingNewRecipeView)
+            }
             .navigationTitle("Recipes")
             .sheet(isPresented: $viewModel.showingNewRecipeView) {
                 NewRecipeView(newRecipePresented:
@@ -50,11 +53,11 @@ struct RecipeListView: View {
     }
     
     private func deleteRecipe(offsets: IndexSet) {
-            for index in offsets {
-                let recipeToDelete = recipes[index]
-                modelContext.delete(recipeToDelete)
-            }
+        for index in offsets {
+            let recipeToDelete = recipes[index]
+            modelContext.delete(recipeToDelete)
         }
+    }
 }
 
 #Preview {
