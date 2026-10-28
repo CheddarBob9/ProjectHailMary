@@ -34,6 +34,7 @@
 				D4DC716D306AC4A700461122 /* Products */,
 			);
 			sourceTree = "<group>";
+			usesTabs = 0;
 		};
 		D4DC716D306AC4A700461122 /* Products */ = {
 			isa = PBXGroup;
